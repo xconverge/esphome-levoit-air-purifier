@@ -1,7 +1,7 @@
 from esphome.components import switch
 import esphome.config_validation as cv
 import esphome.codegen as cg
-from esphome.const import ICON_SECURITY, DEVICE_CLASS_LOCK, CONF_POWER, ICON_POWER, ICON_BRIGHTNESS_5
+from esphome.const import ICON_SECURITY, ENTITY_CATEGORY_CONFIG, CONF_POWER, ICON_POWER, ICON_BRIGHTNESS_5
 from .. import levoit_ns, CONF_LEVOIT_ID, Levoit
 
 DEPENDENCIES = ["levoit"]
@@ -16,8 +16,8 @@ LevoitSwitchPurpose = levoit_ns.enum("LevoitSwitchPurpose")
 CONFIG_SCHEMA = (
     cv.Schema({
         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
-        cv.Optional(CONF_DISPLAY_LOCK): switch.switch_schema(LevoitSwitch, icon=ICON_SECURITY).extend(cv.COMPONENT_SCHEMA),
-        cv.Optional(CONF_DISPLAY_ON): switch.switch_schema(LevoitSwitch, icon=ICON_BRIGHTNESS_5).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_DISPLAY_LOCK): switch.switch_schema(LevoitSwitch, entity_category=ENTITY_CATEGORY_CONFIG, icon=ICON_SECURITY).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_DISPLAY_ON): switch.switch_schema(LevoitSwitch, entity_category=ENTITY_CATEGORY_CONFIG, icon=ICON_BRIGHTNESS_5).extend(cv.COMPONENT_SCHEMA),
         cv.Optional(CONF_POWER): switch.switch_schema(LevoitSwitch, icon=ICON_POWER).extend(cv.COMPONENT_SCHEMA),
     })
 )

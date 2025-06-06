@@ -1,7 +1,7 @@
 from esphome.components import button
 import esphome.config_validation as cv
 import esphome.codegen as cg
-from esphome.const import ICON_RESTART
+from esphome.const import ICON_RESTART, ENTITY_CATEGORY_CONFIG
 from .. import levoit_ns, CONF_LEVOIT_ID, Levoit
 
 DEPENDENCIES = ["levoit"]
@@ -15,7 +15,7 @@ CONF_FILTER_RESET = "filter_reset"
 CONFIG_SCHEMA = (
     cv.Schema({
         cv.GenerateID(CONF_LEVOIT_ID): cv.use_id(Levoit),
-        cv.Optional(CONF_FILTER_RESET): button.button_schema(LevoitButton, icon=ICON_RESTART).extend(cv.COMPONENT_SCHEMA),
+        cv.Optional(CONF_FILTER_RESET): button.button_schema(LevoitButton, entity_category=ENTITY_CATEGORY_CONFIG, icon=ICON_RESTART).extend(cv.COMPONENT_SCHEMA),
     })
 )
 
