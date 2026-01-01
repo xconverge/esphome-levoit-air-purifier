@@ -13,11 +13,12 @@ class LevoitFan : public Component, public fan::Fan {
   void setup() override;
   void dump_config() override;
 
-  fan::FanTraits get_traits() override;
+  fan::FanTraits get_traits() override { return this->traits_; }
 
  protected:
   void control(const fan::FanCall &call) override;
   Levoit *parent_;
+  fan::FanTraits traits_;
 
  private:
   uint32_t powerMask = 0;

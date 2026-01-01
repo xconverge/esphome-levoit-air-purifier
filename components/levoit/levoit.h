@@ -110,8 +110,7 @@ class Levoit : public Component, public uart::UARTDevice {
     static_cast<uint32_t>(LevoitState::FAN_SPEED1) |
     static_cast<uint32_t>(LevoitState::FAN_SPEED2) |
     static_cast<uint32_t>(LevoitState::FAN_SPEED3) |
-    static_cast<uint32_t>(LevoitState::FAN_SPEED4) |
-    static_cast<uint32_t>(LevoitState::FAN_SLEEP);
+    static_cast<uint32_t>(LevoitState::FAN_SPEED4);
   uint32_t pm25_value = 1000;
   uint8_t air_quality = 255;
 

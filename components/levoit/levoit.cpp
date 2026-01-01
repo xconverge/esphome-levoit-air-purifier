@@ -50,7 +50,7 @@ void Levoit::setup() {
 }
 
 void Levoit::maint_task_() {
-  uint32_t lastStatusPollTime = xTaskGetTickCount();
+  uint32_t lastStatusPollTime = 0;
 
   while (true) {
     // wait with timeout for notification
@@ -126,7 +126,8 @@ void Levoit::maint_task_() {
 
       xSemaphoreGive(stateChangeMutex_);
     }
-    if (this->status_poll_seconds > 0 && (xTaskGetTickCount() - lastStatusPollTime) >= pdMS_TO_TICKS(this->status_poll_seconds * 1000)) {
+    if ( lastStatusPollTime == 0 ||
+       (this->status_poll_seconds > 0 && (xTaskGetTickCount() - lastStatusPollTime) >= pdMS_TO_TICKS(this->status_poll_seconds * 1000))) {
       send_command_(LevoitCommand {
         .payloadType = LevoitPayloadType::STATUS_REQUEST,
         .packetType = LevoitPacketType::SEND_MESSAGE,
@@ -292,7 +293,7 @@ void Levoit::command_sync_() {
         .payload_len = 2
       });
       // setting that its done, not sure how to check filter status yet
-      current_state_ &= ~static_cast<uint32_t>(LevoitState::FILTER_RESET);
+      req_on_state_ &= ~static_cast<uint32_t>(LevoitState::FILTER_RESET);
     }
 
     if (req_off_state_ & static_cast<uint32_t>(LevoitState::AIR_QUALITY_CHANGE))
